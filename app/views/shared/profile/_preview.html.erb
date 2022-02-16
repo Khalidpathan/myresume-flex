@@ -4,12 +4,11 @@
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-md rounded-lg mt-20">
             <div class="px-6">
                 <div class="flex flex-wrap justify-center mb-10">
-                    <%= image_tag gravatar_url_for(current_user), 
-                        id: "image-preview", style:"max-width:200px", 
-                        class: "shadow-xl rounded-full absolute w-1/2 transform -translate-y-1/2" 
-                    %>
+                    <div class="box-border h-200 w-200 p-4 border-1">
+                        <%= image_tag image_for(User.find(profile.id))%>
+                    </div>
                     <div class="w-full px-4 text-center mt-28">
-                        <h3 class="text-2xl text-purple-600 font-bold leading-normal mb-2 text-blueGray-700 mb-2">
+                        <h3 class="text-2xl text-Purple-600 font-bold leading-normal mb-2 text-blueGray-700 mb-2">
                             <%= profile.name %>
                         </h3>
                         <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
@@ -26,13 +25,13 @@
                 <% end %>
 
                 <!-- Total Experience section -->
-                <%= render 'shared/profile/profile_section_with_heading', heading: "Total Experience" do %>
+                <%= render 'shared/profile/profile_section_with_heading', color:"red",heading: "Total Experience" do %>
                     <p class="text-gray-500"><%= profile.total_experience %></p>
                 <% end %>
 
                 <!-- Primary Skills section -->
                 <%= render 'shared/profile/profile_section_with_heading', heading: "Primary Skills" do %>
-                    <%= render "shared/profile/badge_container", color: "purple", items: profile.primary_skills %>
+                    <%= render "shared/profile/badge_container", color: "green", items: profile.primary_skills %>
                 <% end %>
 
                 <!-- Secondary Skills section -->
@@ -50,10 +49,11 @@
                 <%= profile.overview %>
             </p>
         <% end %>
-
+        <%= render 'shared/profile/profile_section_card', title: "Experience and Projects" do %>
+            <%= render partial: 'shared/profile/experience', collection: profile.experiences %>
+        <% end %>
         <%= render 'shared/profile/profile_section_card', title: "Education" do %>
             <%= render partial: 'shared/profile/education', collection: profile.educations %>
         <% end %>
     </div>
 
-</div>

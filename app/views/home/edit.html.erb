@@ -4,16 +4,28 @@
     <%= form_for(@profile, builder: TailwindInputBuilder) do |f| %>
         <div class="flex justify-end items-center w-full mb-4">
             <div>
-                <%= f.submit "Save", class: "flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-green-200" %><br/>
+                <div>
+                   <div>
+                 <%= f.submit "Save", class: "flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring--500 focus:ring-offset-2 focus:ring-offset-green-200" %><br/>
+                   </div> 
+                </div>
+
             </div>
         </div>
 
         <%= render 'shared/edit_section', title: "Profile details" do %>
             <%= f.text_field :name, value: @profile.name || current_user.name, placeholder: "Name" %><br/>
             <div class="flex items-center my-4">
-                <%= image_tag gravatar_url_for(current_user), 
+                <%= image_tag image_for(current_user), 
                     id: "image-preview", style:"max-width:200px"
                 %>
+                <div class="flex items-center my-4 px-2">
+                <label class="py-2 px-4 flex justify-start items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg mr-4" for = "avatar">
+                <img class="mr-2" src="/assets/upload-d20922b4ecce394eca9ef7c397685a1605c948927c6eb8a31d1f6ea8d7284831.svg"> Upload Image
+                <%= f.file_field :avatar , accept: "image/*" , type: "file", id: "avatar", name: "profile[avatar]" , class: "hidden" %>
+                </label> 
+                <br>
+            </div>
             </div>
             <%= f.text_field :job_title, value: @profile.job_title, placeholder: "Job title" %><br/>
             <%= f.text_field :total_experience, value: @profile.total_experience, placeholder: "Total experience" %><br/>
@@ -31,7 +43,21 @@
             <%= render 'shared/multiple_inputs_message' %>
             
         <% end %>
-
+        <%= render 'shared/edit_section', title: "Experience" do %>
+            <%= f.fields_for :experiences do |experience| %>
+                <%= render 'shared/input/experience', experience: experience %>
+                <h3 class="text-lg font-semibold">Projects</h3>
+                    <div class="pl-4 mb-2 border-l border-blueGray-400">
+                        <%= render 'shared/edit_sub_section' do %>
+                            <%= experience.fields_for :projects do |project| %>
+                            <%= render 'shared/input/project', project: project %>
+                        <% end %><br/>
+                        <%= render 'shared/input/buttons/add', label: "+ Add Project", path: new_project_path(experience.object.id) %>
+                    </div>
+                <% end %>
+            <% end %><br />
+            <%= render 'shared/input/buttons/add', label: "+ Add Experience", path: "/experiences/new" %>
+        <% end %>
         <%= render 'shared/edit_section', title: "Education" do %>
             <%= f.fields_for :educations do |education| %>
                 <%= render 'shared/input/education', education: education %>

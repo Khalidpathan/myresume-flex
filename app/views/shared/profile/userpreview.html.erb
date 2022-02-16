@@ -1,0 +1,8 @@
+<%= render 'shared/header' %>
+<main class="py-10 max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="flex justify-between align-center">
+        <%= render 'shared/input/buttons/secondary', color: "purple", label: "Looks good!", href: root_path %>
+        <%= render 'shared/input/buttons/secondary', color: "red", label: "Nope Edit", href: edit_url %>
+    </div>
+    <%= render 'shared/profile/preview', profile: profile %>
+</main>
