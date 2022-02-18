@@ -18,8 +18,7 @@
     <script>
         function copyText() {
             /* Copy text into clipboard */
-            // navigator.clipboard.writeText("resumeflex.herokuapp.com/profiles/<%= @user.profile.id%>");
-            copyToClipboard("resumeflex.herokuapp.com/profiles/<%= @user.profile.id %>");
+           copyToClipboard("myresume-flex.herokuapp.com/profiles/<%= @user.profile.id %>");
         }
         function copyToClipboard(textToCopy) {
          if (navigator.clipboard && window.isSecureContext) {
