@@ -8,6 +8,9 @@
 
 ## Setup
 
+This App Ruby version : 2.7.5
+Set Version according for gems file errors
+
 Run following command to create first user after migrating database.
 
 ```
